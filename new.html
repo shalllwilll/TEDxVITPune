@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TEDxVITPune</title>
+  <link rel="icon" type="image/png" href="favicon.png" />
+  
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: black;
+      color: white;
+    }
+
+    video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: -1;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 30px 60px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 10;
+    }
+
+    header div {
+      font-size: 2.7rem;
+      font-weight: bold;
+      color: white;
+    }
+
+    header div span {
+      color: red;
+    }
+
+    header a button {
+      background-color: white;
+      color: black;
+      border: none;
+      border-radius: 25px;
+      padding: 20px 40px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+      transition: background-color 0.3s ease;
+    }
+
+    .text-overlay {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      font-size: 2rem;
+      color: hsl(14, 86%, 59%);
+      padding: 20px;
+      max-width: 90vw;
+      transition: opacity 1s ease-in-out;
+    }
+
+    footer {
+      position: absolute;
+      bottom: 15px;
+      width: 100%;
+      text-align: center;
+      color: #aaa;
+      font-size: 0.9rem;
+      padding: 10px 0;
+    }
+
+    footer span {
+      color: red;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header Section -->
+  <header>
+    <div><span>TEDx</span>VITPune</div>
+    <a href="https://www.tedxvitpune.org/" target="_blank">
+      <button>Register Now</button>
+    </a>
+  </header>
+
+  <!-- Video Background -->
+  <video id="bgVideo" autoplay muted loop>
+    <source src="WhatsApp Video 2025-04-03 at 20.23.42.mp4" type="video/mp4" />
+    Your browser does not support the video tag.
+  </video>
+
+  <!-- Text Overlay -->
+  <div id="overlayText" class="text-overlay"></div>
+
+  <!-- Footer -->
+  <footer>
+    © 2025 <span>TEDxVITPune</span>. All Rights Reserved.
+  </footer>
+
+  <!-- Script for overlay text -->
+  <script>
+    const overlayText = document.getElementById("overlayText");
+    const video = document.getElementById("bgVideo");
+
+    const lines = [
+      "Ideas brought us together.",
+      "The journey shaped us.",
+      "We started as a team,",
+      "But we became something more.",
+      "A family.",
+      "We are the stories we tell.",
+      "The art we create.",
+      "The ideas we exchange.",
+      "The memories we carry.",
+      "The bonds we share.",
+      "But behind every great idea, there’s a journey.",
+      "We laughed.",
+      "We danced.",
+      "We planned.",
+      "Through the chaos, the late nights,",
+      "The last-minute changes—",
+      "Every setback, every breakthrough,",
+      "Every impossible idea made real.",
+      "One day, when we look back,",
+      "It won’t be the stage we remember.",
+      "It will be the late-night ideas,",
+      "The nervous excitement,",
+      "The unspoken trust.",
+      "This isn't just an event.",
+      "These are the moments that made us.",
+      "The people who became home.",
+      "Ideas change everything.",
+      "Dimes of Dynamism."
+    ];
+
+    const totalVideoDuration = 62; // Adjust based on your video length
+    const initialDelay = 4; // First 4 seconds no text
+    const displayTime = 2.9; // Duration per line
+    let currentLine = 0;
+
+    function updateText() {
+      const currentTime = video.currentTime;
+      if (currentTime < initialDelay) {
+        overlayText.innerHTML = "";
+        return;
+      }
+      const index = Math.floor((currentTime - initialDelay) / displayTime);
+      if (index !== currentLine && index < lines.length) {
+        overlayText.innerHTML = lines[index];
+        currentLine = index;
+      }
+    }
+
+    video.addEventListener("timeupdate", updateText);
+
+    video.addEventListener("ended", () => {
+      currentLine = 0;
+      overlayText.innerHTML = "";
+    });
+  </script>
+</body>
+</html>
